@@ -1,0 +1,38 @@
+api: /v1/runner/{project}/services/{id}/{version}
+meta:
+  id: backend
+  project: unotech
+  version: v1
+spec:
+  affinity: []
+  labels: {}
+  scale:
+    concurrency: 50
+    maxReplicas: 100
+    minReplicas: 1
+    mode: parallel
+    replicas: 1
+  tasks:
+  - docker:
+      cmd: []
+      image: noorainp/unotech-backend:v1
+      imagePullPolicy: pull-if-not-exists
+      secret: ""
+    env: {}
+    id: backend
+    ports:
+    - name: http
+      port: 8080
+      protocol: http
+    resources:
+      cpu: 250
+      memory: 512
+    runtime: image
+    secrets: []
+  upstreams:
+  - projectId: unotech
+    service: '*'
+  whitelists:
+  - projectId: unotech
+    service: '*'
+type: service
