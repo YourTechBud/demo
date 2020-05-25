@@ -14,7 +14,7 @@ app.post("/event/add-user", async (req, res) => {
 
   var status = 0
   switch (req.body.data.doc.department) {
-    case 'accounts': {
+    case 'sales': {
       const response = await db.insert("user_app_mapping").doc({ user_id: req.body.data.doc.id, app: 'salesforce' }).apply()
       status = response.status
       break;
