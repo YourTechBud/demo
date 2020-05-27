@@ -21,4 +21,4 @@ var index = 0
 setInterval(() => {
   insert(index);
   index++
-}, 50)
+}, 100)

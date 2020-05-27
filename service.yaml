@@ -7,10 +7,10 @@ spec:
   affinity: []
   labels: {}
   scale:
-    concurrency: 5
+    concurrency: 50
     maxReplicas: 100
     minReplicas: 1
-    mode: parallel
+    mode: per-second
     replicas: 1
   tasks:
   - docker:
