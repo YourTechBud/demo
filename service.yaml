@@ -1,7 +1,7 @@
 api: /v1/runner/{project}/services/{id}/{version}
 meta:
   id: backend
-  project: unotech
+  project: myproject
   version: v1
 spec:
   affinity: []
@@ -15,7 +15,7 @@ spec:
   tasks:
   - docker:
       cmd: []
-      image: noorainp/unotech-backend:v1
+      image: noorainp/myproject-backend:v1
       imagePullPolicy: pull-if-not-exists
       secret: ""
     env: {}
@@ -30,9 +30,9 @@ spec:
     runtime: image
     secrets: []
   upstreams:
-  - projectId: unotech
+  - projectId: myproject
     service: '*'
   whitelists:
-  - projectId: unotech
+  - projectId: myproject
     service: '*'
 type: service

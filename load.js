@@ -1,5 +1,5 @@
 const API = require('space-api').API
-const api = new API('unotech', 'http://localhost:4122');
+const api = new API('myproject', 'http://localhost:4122');
 const db = api.DB("db");
 
 

@@ -1,11 +1,17 @@
-var API = require('space-api').API
+var {API, cond} = require('space-api')
 var express = require("express");
 var app = express();
 
-const api = new API('unotech', 'http://gateway.space-cloud.svc.cluster.local:4122');
+const api = new API('myproject', 'http://gateway.space-cloud.svc.cluster.local:4122');
 const db = api.DB("db");
 
 app.use(express.json());
+
+app.get("/user/:userId", async (req, res) => {
+  const response = await db.get("user_app_mapping").where(cond('user_id', '==', req.params.userId)).apply()
+  console.log('Get response:', response)
+  res.send(JSON.stringify(response.data))
+})
 
 app.post("/event/add-user", async (req, res) => {
   // Get the number from the body
