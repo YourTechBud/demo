@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "space-api": "^0.15.3"
+    "space-api": "^0.18.2"
   }
 }

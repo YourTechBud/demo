@@ -1,0 +1,9 @@
+api: /v1/config/projects/{project}/eventing/config/{id}
+meta:
+  id: eventing-config
+  project: myproject
+spec:
+  dbAlias: db
+  enabled: true
+type: eventing-config
+---

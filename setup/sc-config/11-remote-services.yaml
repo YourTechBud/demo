@@ -1,0 +1,63 @@
+api: /v1/config/projects/{project}/remote-service/service/{id}
+meta:
+  id: backend
+  project: myproject
+spec:
+  endpoints:
+    getApps:
+      graphTemplate: ""
+      headers: null
+      kind: internal
+      method: GET
+      outputFormat: yaml
+      path: /user/{args.id}
+      requestTemplate: ""
+      responseTemplate: ""
+      rule:
+        rule: allow
+      template: go
+  url: http://backend.myproject.svc.cluster.local:8080
+type: remote-services
+---
+api: /v1/config/projects/{project}/remote-service/service/{id}
+meta:
+  id: greeter
+  project: myproject
+spec:
+  endpoints:
+    greet:
+      graphTemplate: ""
+      headers: null
+      kind: internal
+      method: POST
+      outputFormat: yaml
+      path: /greeting/{args.name}
+      requestTemplate: ""
+      responseTemplate: ""
+      rule:
+        rule: allow
+      template: go
+  url: http://greeter.myproject.svc.cluster.local:8080
+type: remote-services
+---
+api: /v1/config/projects/{project}/remote-service/service/{id}
+meta:
+  id: math
+  project: myproject
+spec:
+  endpoints:
+    double:
+      graphTemplate: ""
+      headers: null
+      kind: internal
+      method: POST
+      outputFormat: yaml
+      path: /double
+      requestTemplate: ""
+      responseTemplate: ""
+      rule:
+        rule: allow
+      template: go
+  url: http://doubler.myproject.svc.cluster.local:8080
+type: remote-services
+---

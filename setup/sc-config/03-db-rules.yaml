@@ -1,0 +1,52 @@
+api: /v1/config/projects/{project}/database/{dbAlias}/collections/{col}/rules
+meta:
+  col: default
+  dbAlias: db
+  project: myproject
+spec:
+  isRealtimeEnabled: false
+  rules:
+    create:
+      rule: allow
+    delete:
+      rule: allow
+    read:
+      rule: allow
+    update:
+      rule: allow
+type: db-rules
+---
+api: /v1/config/projects/{project}/database/{dbAlias}/collections/{col}/rules
+meta:
+  col: user_app_mapping
+  dbAlias: db
+  project: myproject
+spec:
+  isRealtimeEnabled: false
+  rules: {}
+type: db-rules
+---
+api: /v1/config/projects/{project}/database/{dbAlias}/collections/{col}/rules
+meta:
+  col: users
+  dbAlias: db
+  project: myproject
+spec:
+  isRealtimeEnabled: false
+  rules:
+    create:
+      error: Only the admin can create users
+      eval: ==
+      f1: args.auth.role
+      f2: admin
+      name: no name
+      rule: match
+      type: string
+    delete:
+      rule: allow
+    read:
+      rule: allow
+    update:
+      rule: allow
+type: db-rules
+---

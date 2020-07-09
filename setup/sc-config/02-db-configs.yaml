@@ -1,0 +1,12 @@
+api: /v1/config/projects/{project}/database/{dbAlias}/config/{id}
+meta:
+  dbAlias: db
+  id: db-config
+  project: myproject
+spec:
+  conn: postgres://postgres:mysecretpassword@postgres.db.svc.cluster.local:5432/postgres?sslmode=disable
+  enabled: true
+  isPrimary: false
+  type: postgres
+type: db-config
+---

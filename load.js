@@ -1,19 +1,15 @@
 const API = require('space-api').API
-const api = new API('myproject', 'http://localhost:4122');
+const api = new API('myproject', 'http://157.245.98.47:30705');
 const db = api.DB("db");
 
 
 const insert = async (index) => {
-  const name = `name-${index}`
-  const email = `email-${index}`
-  const department = (index % 2 == 0) ? 'marketing' : 'sales'
-
-  var response = await db.insert("users").doc({ name, email, department }).apply()
+  var response = await api.call("greeter", "greet", {name: "Noorain"})
   if (response.status != 200) {
     console.log('Error:', response)
     return
   }
-  console.log('inserted:', index)
+  console.log('inserted:', index, response.data)
   return
 }
 

@@ -1,0 +1,28 @@
+api: /v1/config/projects/{project}/eventing/triggers/{id}
+meta:
+  id: new_user
+  project: myproject
+spec:
+  options:
+    col: users
+    db: db
+  retries: 3
+  timeout: 5000
+  type: DB_INSERT
+  url: http://backend.myproject.svc.cluster.local:8080/event/add-user
+type: eventing-triggers
+---
+api: /v1/config/projects/{project}/eventing/triggers/{id}
+meta:
+  id: new_user_app_mapping
+  project: myproject
+spec:
+  options:
+    col: user_app_mapping
+    db: db
+  retries: 3
+  timeout: 5000
+  type: DB_INSERT
+  url: https://httpbin.org/post
+type: eventing-triggers
+---

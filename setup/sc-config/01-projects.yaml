@@ -1,0 +1,13 @@
+api: /v1/config/projects/{project}
+meta:
+  project: myproject
+spec:
+  aesKey: NzA0YmU1NTYwOWZmNGM5YTgzYjE2MWQzYzQyYmYwMDA=
+  contextTimeGraphQL: 5
+  id: myproject
+  name: myproject
+  secrets:
+  - isPrimary: true
+    secret: 2ba0fa3211704249a1e594e737d7a874
+type: project
+---

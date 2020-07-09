@@ -1,0 +1,8 @@
+api: /v1/config/projects/{project}/eventing/rules/{id}
+meta:
+  id: default
+  project: myproject
+spec:
+  rule: allow
+type: eventing-rule
+---

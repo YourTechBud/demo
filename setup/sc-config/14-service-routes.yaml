@@ -1,0 +1,64 @@
+api: /v1/runner/{project}/service-routes/{id}
+meta:
+  id: adder
+  project: myproject
+spec:
+  routes:
+  - source:
+      port: 8080
+    targets:
+    - port: 8080
+      type: version
+      version: v1
+      weight: 100
+type: service-route
+---
+api: /v1/runner/{project}/service-routes/{id}
+meta:
+  id: backend
+  project: myproject
+spec:
+  routes:
+  - source:
+      port: 8080
+    targets:
+    - port: 8080
+      type: version
+      version: v1
+      weight: 100
+type: service-route
+---
+api: /v1/runner/{project}/service-routes/{id}
+meta:
+  id: doubler
+  project: myproject
+spec:
+  routes:
+  - source:
+      port: 8080
+    targets:
+    - port: 8080
+      type: version
+      version: v1
+      weight: 100
+type: service-route
+---
+api: /v1/runner/{project}/service-routes/{id}
+meta:
+  id: greeter
+  project: myproject
+spec:
+  routes:
+  - source:
+      port: 8080
+    targets:
+    - port: 8080
+      type: version
+      version: v1
+      weight: 50
+    - port: 8080
+      type: version
+      version: v2
+      weight: 50
+type: service-route
+---

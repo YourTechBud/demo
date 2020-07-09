@@ -1,0 +1,203 @@
+api: /v1/runner/{project}/services/{serviceId}/{version}
+meta:
+  project: myproject
+  serviceId: adder
+  version: v1
+spec:
+  affinity: null
+  labels: null
+  scale:
+    concurrency: 50
+    maxReplicas: 100
+    minReplicas: 1
+    mode: parallel
+    replicas: 1
+  tasks:
+  - docker:
+      cmd: null
+      image: spaceuptech/basic-service
+      imagePullPolicy: pull-if-not-exists
+      secret: ""
+    env: {}
+    id: adder
+    name: adder
+    ports:
+    - name: http
+      port: 8080
+      protocol: http
+    resources:
+      cpu: 100
+      memory: 100
+    runtime: image
+    secrets: null
+  upstreams:
+  - projectId: myproject
+    service: '*'
+  whitelists:
+  - projectId: myproject
+    service: doubler
+type: service
+---
+api: /v1/runner/{project}/services/{serviceId}/{version}
+meta:
+  project: myproject
+  serviceId: backend
+  version: v1
+spec:
+  affinity: null
+  labels: null
+  scale:
+    concurrency: 50
+    maxReplicas: 100
+    minReplicas: 1
+    mode: per-second
+    replicas: 1
+  tasks:
+  - docker:
+      cmd: null
+      image: noorainp/myproject-backend:v1
+      imagePullPolicy: pull-if-not-exists
+      secret: ""
+    env: {}
+    id: backend
+    name: backend
+    ports:
+    - name: http
+      port: 8080
+      protocol: http
+    resources:
+      cpu: 250
+      memory: 512
+    runtime: image
+    secrets: null
+  upstreams:
+  - projectId: myproject
+    service: '*'
+  whitelists:
+  - projectId: myproject
+    service: '*'
+type: service
+---
+api: /v1/runner/{project}/services/{serviceId}/{version}
+meta:
+  project: myproject
+  serviceId: doubler
+  version: v1
+spec:
+  affinity: null
+  labels: null
+  scale:
+    concurrency: 50
+    maxReplicas: 100
+    minReplicas: 1
+    mode: parallel
+    replicas: 1
+  tasks:
+  - docker:
+      cmd: null
+      image: spaceuptech/basic-service
+      imagePullPolicy: pull-if-not-exists
+      secret: ""
+    env:
+      ADDER_URL: adder.myproject.svc.cluster.local
+    id: doubler
+    name: doubler
+    ports:
+    - name: http
+      port: 8080
+      protocol: http
+    resources:
+      cpu: 100
+      memory: 100
+    runtime: image
+    secrets: null
+  upstreams:
+  - projectId: myproject
+    service: '*'
+  whitelists:
+  - projectId: myproject
+    service: '*'
+type: service
+---
+api: /v1/runner/{project}/services/{serviceId}/{version}
+meta:
+  project: myproject
+  serviceId: greeter
+  version: v1
+spec:
+  affinity: null
+  labels: null
+  scale:
+    concurrency: 15
+    maxReplicas: 2
+    minReplicas: 1
+    mode: per-second
+    replicas: 1
+  tasks:
+  - docker:
+      cmd: null
+      image: spaceuptech/greeter
+      imagePullPolicy: pull-if-not-exists
+      secret: ""
+    env:
+      GREETING: hi
+    id: greeter
+    name: greeter
+    ports:
+    - name: http
+      port: 8080
+      protocol: http
+    resources:
+      cpu: 100
+      memory: 100
+    runtime: image
+    secrets: null
+  upstreams:
+  - projectId: myproject
+    service: '*'
+  whitelists:
+  - projectId: myproject
+    service: '*'
+type: service
+---
+api: /v1/runner/{project}/services/{serviceId}/{version}
+meta:
+  project: myproject
+  serviceId: greeter
+  version: v2
+spec:
+  affinity: null
+  labels: null
+  scale:
+    concurrency: 50
+    maxReplicas: 100
+    minReplicas: 1
+    mode: parallel
+    replicas: 1
+  tasks:
+  - docker:
+      cmd: null
+      image: spaceuptech/greeter
+      imagePullPolicy: pull-if-not-exists
+      secret: ""
+    env:
+      GREETING: hello
+    id: greeter
+    name: greeter
+    ports:
+    - name: http
+      port: 8080
+      protocol: http
+    resources:
+      cpu: 100
+      memory: 100
+    runtime: image
+    secrets: null
+  upstreams:
+  - projectId: myproject
+    service: '*'
+  whitelists:
+  - projectId: myproject
+    service: '*'
+type: service
+---
