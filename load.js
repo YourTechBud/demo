@@ -1,5 +1,5 @@
 const API = require('space-api').API
-const api = new API('myproject', 'http://157.245.98.47:30705');
+const api = new API('myproject', 'http://157.245.232.6:31005');
 const db = api.DB("db");
 
 

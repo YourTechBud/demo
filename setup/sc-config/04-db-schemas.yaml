@@ -9,20 +9,6 @@ type: db-schema
 ---
 api: /v1/config/projects/{project}/database/{dbAlias}/collections/{col}/schema/mutate
 meta:
-  col: user_app_mapping
-  dbAlias: db
-  project: myproject
-spec:
-  schema: |-
-    type user_app_mapping {
-      id: ID! @primary
-      app: ID
-      user_id: ID @foreign(table: users, field: id)
-    }
-type: db-schema
----
-api: /v1/config/projects/{project}/database/{dbAlias}/collections/{col}/schema/mutate
-meta:
   col: users
   dbAlias: db
   project: myproject
@@ -33,6 +19,20 @@ spec:
       email: ID
       name: String
       department: ID
+    }
+type: db-schema
+---
+api: /v1/config/projects/{project}/database/{dbAlias}/collections/{col}/schema/mutate
+meta:
+  col: user_app_mapping
+  dbAlias: db
+  project: myproject
+spec:
+  schema: |-
+    type user_app_mapping {
+      id: ID! @primary
+      app: ID
+      user_id: ID @foreign(table: users, field: id)
     }
 type: db-schema
 ---
