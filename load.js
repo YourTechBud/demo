@@ -17,4 +17,4 @@ var index = 0
 setInterval(() => {
   insert(index);
   index++
-}, 100)
+}, 50)

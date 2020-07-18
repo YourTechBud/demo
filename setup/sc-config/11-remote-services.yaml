@@ -6,7 +6,7 @@ spec:
   endpoints:
     getApps:
       graphTemplate: ""
-      headers: null
+      headers: []
       kind: internal
       method: GET
       outputFormat: yaml
@@ -27,7 +27,7 @@ spec:
   endpoints:
     greet:
       graphTemplate: ""
-      headers: null
+      headers: []
       kind: internal
       method: POST
       outputFormat: yaml
@@ -48,7 +48,7 @@ spec:
   endpoints:
     double:
       graphTemplate: ""
-      headers: null
+      headers: []
       kind: internal
       method: POST
       outputFormat: yaml
