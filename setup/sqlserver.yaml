@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sqlserver
+  name: sqlserver
+  namespace: db
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: sqlserver
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+      - env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: "yourStrong(!)Password"
+        - name: MSSQL_AGENT_ENABLED
+          value: "true"
+        - name: MSSQL_PID
+          value: "Standard"
+        image: mcr.microsoft.com/mssql/server
+        imagePullPolicy: IfNotPresent
+        name: sqlserver
+        ports:
+        - containerPort: 1433
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sqlserver
+  name: sqlserver
+  namespace: db
+spec:
+  ports:
+  - port: 1433
+    protocol: TCP
+    targetPort: 1433
+  selector:
+    app: sqlserver
+  sessionAffinity: None
+  type: ClusterIP
