@@ -33,6 +33,20 @@ roleRef:
   name: mongo
   apiGroup: rbac.authorization.k8s.io
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-storage
+  namespace: db
+  labels:
+    app: mongo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -53,6 +67,10 @@ spec:
         app: mongo
     spec:
       serviceAccountName: mongo
+      volumes:
+      - name: mongo-storage
+        persistentVolumeClaim:
+          claimName: mongo-storage
       containers:
       - env:
         - name: MONGO_INITDB_ROOT_USERNAME
@@ -75,6 +93,9 @@ spec:
           requests:
             cpu: 100m
             memory: 256Mi
+        volumeMounts:
+        - mountPath: /data/db
+          name: mongo-storage
       - name: mongo-sidecar
         image: cvallance/mongo-k8s-sidecar
         env:

@@ -793,7 +793,20 @@ data:
     #------------------------------------------------------------------------------
     
     # Add settings for extensions here
-    
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-storage
+  namespace: db
+  labels:
+    app: postgres
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi 
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -840,15 +853,20 @@ spec:
         - name: config-volume
           mountPath: /etc/postgresql/postgresql.conf
           subPath: postgresql.conf
+        - mountPath: /var/lib/postgresql/data
+          name: postgres-storage
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: config-volume
-          configMap:
-            name: postgres
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-storage
+      - name: config-volume
+        configMap:
+          name: postgres
 ---
 apiVersion: v1
 kind: Service

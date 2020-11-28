@@ -3,6 +3,20 @@ kind: Namespace
 metadata:
   name: db
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-storage
+  namespace: db
+  labels:
+    app: mysql
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,6 +36,10 @@ spec:
       labels:
         app: mysql
     spec:
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-storage
       containers:
       - env:
         - name: MYSQL_ROOT_PASSWORD
@@ -36,6 +54,9 @@ spec:
           requests:
             cpu: 100m
             memory: 128Mi
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-storage
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
